@@ -12,7 +12,7 @@ Future<void> main() async {
   await setupLocator();
   await ThemeManager.initialise();
   setupBottomSheetUi();
-  setupDialogUi();
+  setupDialogUi(); 
   runApp(const App());
 }
 

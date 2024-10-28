@@ -49,25 +49,6 @@ class OnboardingView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  SwitchListTile(
-                    title: const Text(
-                      'Analytics',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    value: viewModel.isAnalyticsEnabled,
-                    onChanged: viewModel.toggleAnalyticsCollection,
-                  ),
-                  SwitchListTile(
-                    title: const Text(
-                      'Crash reports',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    value: viewModel.isCrashlyticsCollectionEnabled,
-                    onChanged: viewModel.toggleCrashlyticsCollection,
-                  ),
-                  const SizedBox(height: 16),
                   TextButton(
                     onPressed: viewModel.openPrivacyPolicy,
                     child: const Text(

@@ -105,20 +105,6 @@ class SettingsView extends StatelessWidget {
             SettingsSection(
               title: 'Analytics',
               tiles: [
-                SettingsTile.switchTile(
-                  title: 'Send crash reports',
-                  leading: const Icon(Icons.bug_report),
-                  switchActiveColor: Theme.of(context).colorScheme.primary,
-                  switchValue: viewModel.isCrashlyticsCollectionEnabled,
-                  onToggle: viewModel.toggleCrashlyticsCollection,
-                ),
-                SettingsTile.switchTile(
-                  title: 'Analytics collection',
-                  leading: const Icon(Icons.analytics),
-                  switchActiveColor: Theme.of(context).colorScheme.primary,
-                  switchValue: viewModel.isAnalyticsEnabled,
-                  onToggle: viewModel.toggleAnalyticsCollection,
-                ),
                 SettingsTile(
                   title: 'Request data deletion',
                   leading: const Icon(Icons.delete),

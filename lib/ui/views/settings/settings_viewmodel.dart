@@ -3,7 +3,6 @@ import 'package:dgg/app/app.locator.dart';
 import 'package:dgg/app/app.router.dart';
 import 'package:dgg/datamodels/session_info.dart';
 import 'package:dgg/services/dgg_service.dart';
-import 'package:dgg/services/firebase_service.dart';
 import 'package:dgg/services/shared_preferences_service.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
@@ -18,12 +17,10 @@ class SettingsViewModel extends BaseViewModel {
   final _themeService = locator<ThemeService>();
   final _dialogService = locator<DialogService>();
   final _snackbarService = locator<SnackbarService>();
-  final _firebaseService = locator<FirebaseService>();
 
   bool get isSignedIn => _dggService.sessionInfo is Available;
   String? get username => (_dggService.sessionInfo as Available).nick;
-  bool get isCrashlyticsCollectionEnabled =>
-      _firebaseService.crashlyticsEnabled;
+
   bool _isAnalyticsEnabled = false;
   bool get isAnalyticsEnabled => _isAnalyticsEnabled;
   bool _isWakelockEnabled = false;
@@ -63,18 +60,6 @@ class SettingsViewModel extends BaseViewModel {
 
   Future<void> navigateToAuth() async {
     await _navigationService.navigateTo(Routes.authView);
-    notifyListeners();
-  }
-
-  Future<void> toggleCrashlyticsCollection(bool value) async {
-    _firebaseService.setCrashlyticsEnabled(value);
-    notifyListeners();
-  }
-
-  void toggleAnalyticsCollection(bool value) {
-    _firebaseService.setAnalyticsEnabled(value);
-    _sharedPreferencesService.setAnalyticsEnabled(value);
-    _isAnalyticsEnabled = value;
     notifyListeners();
   }
 
@@ -124,33 +109,5 @@ class SettingsViewModel extends BaseViewModel {
       secondaryButtonTitle: 'Cancel',
       barrierDismissible: true,
     );
-
-    if (response != null && response.confirmed) {
-      final id = await _firebaseService.getAppInstanceId();
-      if (id == null) {
-        _snackbarService.showSnackbar(
-          message: 'Failed to get ID',
-          duration: const Duration(seconds: 2),
-        );
-      } else {
-        Clipboard.setData(ClipboardData(text: id));
-        try {
-          if (!await launchUrl(
-            Uri.parse(
-                r'https://docs.google.com/forms/d/e/1FAIpQLSfaqQbshNtDOiwfns2co3tmAj6fSFRNUahqNPXCyRMTezQ1Eg/viewform?usp=sf_link'),
-          )) {
-            _snackbarService.showSnackbar(
-              message: 'Failed to open form',
-              duration: const Duration(seconds: 2),
-            );
-          }
-        } catch (_) {
-          _snackbarService.showSnackbar(
-            message: 'Failed to open form',
-            duration: const Duration(seconds: 2),
-          );
-        }
-      }
-    }
   }
 }

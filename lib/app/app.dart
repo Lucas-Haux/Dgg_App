@@ -1,6 +1,5 @@
 import 'package:dgg/services/cookie_manager_service.dart';
 import 'package:dgg/services/dgg_service.dart';
-import 'package:dgg/services/firebase_service.dart';
 import 'package:dgg/services/image_service.dart';
 import 'package:dgg/services/shared_preferences_service.dart';
 import 'package:dgg/ui/bottom_sheets/message_action_bottom_sheet.dart';
@@ -35,7 +34,6 @@ import 'package:stacked_themes/stacked_themes.dart';
     LazySingleton(classType: DggService),
     LazySingleton(classType: ImageService),
     InitializableSingleton(classType: SharedPreferencesService),
-    InitializableSingleton(classType: FirebaseService),
   ],
   dialogs: [
     StackedDialog(classType: TextInputDialog),
